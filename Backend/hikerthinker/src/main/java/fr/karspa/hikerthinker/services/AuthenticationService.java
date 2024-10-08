@@ -55,8 +55,9 @@ public class AuthenticationService {
         try{
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             String token = tokenService.generateJwt(authentication);
+            ApplicationUser foundUser = userRepository.findByUsername(username).get();
 
-            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
+            return new LoginResponseDTO(foundUser.getUserId(), foundUser.getUsername(), foundUser.getEmail(), token);
         } catch (AuthenticationException e) {
             return new LoginResponseDTO(null, "");
         }

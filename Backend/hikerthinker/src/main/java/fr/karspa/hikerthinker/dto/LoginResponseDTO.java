@@ -3,24 +3,49 @@ package fr.karspa.hikerthinker.dto;
 import fr.karspa.hikerthinker.Entity.ApplicationUser;
 
 public class LoginResponseDTO {
-    private ApplicationUser user;
+
+    private Long userId;
+    private String username;
+    private String email;
+
     private String jwtToken;
 
     public LoginResponseDTO() {
         super();
     }
 
-    public LoginResponseDTO(ApplicationUser user, String jwtToken) {
-        this.user = user;
+    public LoginResponseDTO(Long userId, String username, String email, String jwtToken) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
         this.jwtToken = jwtToken;
     }
 
-    public ApplicationUser getUser() {
-        return user;
+    public LoginResponseDTO(Object o, String s) {
     }
 
-    public void setUser(ApplicationUser user) {
-        this.user = user;
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getJwtToken() {
