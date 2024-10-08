@@ -6,14 +6,14 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "hikes")
-public class Hikes {
+public class Hike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hike_id")
     private Long hikeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private ApplicationUser user;
 
@@ -30,10 +30,19 @@ public class Hikes {
     @Column(nullable = false)
     private boolean isModel;
 
-    public Hikes() {
+    public Hike() {
     }
 
-    public Hikes(Long hikeId, ApplicationUser user, String hikeTitle, float distance, float vertical, LocalDate hikeDate, boolean isModel) {
+    public Hike(ApplicationUser user, String hikeTitle, float distance, float vertical, LocalDate hikeDate, boolean isModel) {
+        this.user = user;
+        this.hikeTitle = hikeTitle;
+        this.distance = distance;
+        this.vertical = vertical;
+        this.hikeDate = hikeDate;
+        this.isModel = isModel;
+    }
+
+    public Hike(Long hikeId, ApplicationUser user, String hikeTitle, float distance, float vertical, LocalDate hikeDate, boolean isModel) {
         this.hikeId = hikeId;
         this.user = user;
         this.hikeTitle = hikeTitle;

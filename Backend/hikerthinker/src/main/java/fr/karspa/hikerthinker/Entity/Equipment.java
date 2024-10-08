@@ -29,7 +29,7 @@ public class Equipment {
             joinColumns = {@JoinColumn(name = "equipment_id")},
             inverseJoinColumns = {@JoinColumn(name = "hike_id")}
     )
-    private Hikes hikes;
+    private Hike hikes;
 
     public Equipment() {
     }

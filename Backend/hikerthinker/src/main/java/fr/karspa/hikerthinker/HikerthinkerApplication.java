@@ -1,6 +1,7 @@
 package fr.karspa.hikerthinker;
 
 import fr.karspa.hikerthinker.Entity.ApplicationUser;
+import fr.karspa.hikerthinker.Entity.Hike;
 import fr.karspa.hikerthinker.Entity.Role;
 import fr.karspa.hikerthinker.repository.RoleRepository;
 import fr.karspa.hikerthinker.repository.UserRepository;
@@ -28,7 +29,6 @@ public class HikerthinkerApplication {
 		return args -> {
 
 			if(roleRepository.findByAuthority("ADMIN").isPresent()) return;
-
 
 			Role adminRole = roleRepository.save(new Role("ADMIN"));
 			roleRepository.save(new Role("USER"));
