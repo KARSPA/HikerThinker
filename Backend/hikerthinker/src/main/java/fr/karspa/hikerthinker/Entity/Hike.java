@@ -1,5 +1,6 @@
 package fr.karspa.hikerthinker.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -11,10 +12,11 @@ public class Hike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hike_id")
-    private Long hikeId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private ApplicationUser user;
 
 
@@ -47,8 +49,8 @@ public class Hike {
         this.isModel = isModel;
     }
 
-    public Hike(Long hikeId, ApplicationUser user, String hikeTitle, float distanceInKm, float positiveVerticalInMeters,float negativeVerticalInMeters, LocalDate date, boolean isModel, float durationInDays) {
-        this.hikeId = hikeId;
+    public Hike(Long id, ApplicationUser user, String hikeTitle, float distanceInKm, float positiveVerticalInMeters, float negativeVerticalInMeters, LocalDate date, boolean isModel, float durationInDays) {
+        this.id = id;
         this.user = user;
         this.hikeTitle = hikeTitle;
         this.distanceInKm = distanceInKm;
@@ -59,12 +61,12 @@ public class Hike {
         this.isModel = isModel;
     }
 
-    public Long getHikeId() {
-        return hikeId;
+    public Long getId() {
+        return id;
     }
 
-    public void setHikeId(Long hikeId) {
-        this.hikeId = hikeId;
+    public void setId(Long hikeId) {
+        this.id = hikeId;
     }
 
     public String getHikeTitle() {

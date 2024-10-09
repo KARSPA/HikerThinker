@@ -55,7 +55,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-         http.csrf(csrf -> csrf.disable())
+         http.cors().and().csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth -> {
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/admin/**").hasRole("ADMIN");
@@ -94,6 +94,7 @@ public class SecurityConfiguration {
         jwtConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtConverter;
     }
+
 
 
 }

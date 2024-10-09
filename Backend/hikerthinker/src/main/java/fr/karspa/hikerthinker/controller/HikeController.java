@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/hikes")
+
 public class HikeController {
 
     private HikeService hikeService;
@@ -30,9 +31,10 @@ public class HikeController {
 
 
     @GetMapping("/hike")
-    public Hike findById(@RequestParam(name = "hikeId") String hikeId) {
+    public Hike findById(@RequestParam(name = "hikeId") String hikeId, @RequestHeader(name = "Authorization") String rawToken) {
+        String requesterUsername = tokenService.getSubject(rawToken.substring(7));
         Long longHikeId = Long.parseLong(hikeId);
-        return hikeService.findHikeById(longHikeId);
+        return hikeService.findHikeByIdAndUser(requesterUsername, longHikeId);
     }
 
 }

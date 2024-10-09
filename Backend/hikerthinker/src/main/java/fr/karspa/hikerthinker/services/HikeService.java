@@ -17,8 +17,14 @@ public class HikeService {
         this.userRepository = userRepository;
     }
 
-    public Hike findHikeById(Long hikeId){
-        return hikeRepository.findById(hikeId).orElse(null);
+    public Hike findHikeByIdAndUser(String username, Long hikeId){
+
+        try{
+            ApplicationUser user = userRepository.findByUsername(username).get();
+            return hikeRepository.findHikeByIdAndUser(hikeId, user).get();
+        }catch(Exception e){
+            return new Hike();
+        }
     }
 
 
