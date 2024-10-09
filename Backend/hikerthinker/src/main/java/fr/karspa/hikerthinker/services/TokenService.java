@@ -34,10 +34,16 @@ public class TokenService {
                 .issuer("self")
                 .issuedAt(now)
                 .subject(auth.getName())
+                //.claim("userId", auth.getPrincipal())
                 .claim("roles", scope)
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+
+
+    public String getSubject(String token){
+        return jwtDecoder.decode(token).getSubject();
     }
 
 }

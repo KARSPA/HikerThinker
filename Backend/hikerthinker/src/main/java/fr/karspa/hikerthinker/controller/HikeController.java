@@ -2,23 +2,35 @@ package fr.karspa.hikerthinker.controller;
 
 import fr.karspa.hikerthinker.Entity.Hike;
 import fr.karspa.hikerthinker.services.HikeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import fr.karspa.hikerthinker.services.TokenService;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
 
 @RestController
-@RequestMapping("/hike")
+@RequestMapping("/hikes")
 public class HikeController {
 
     private HikeService hikeService;
+    private TokenService tokenService;
 
-    public HikeController(HikeService hikeService) {
+    public HikeController(HikeService hikeService, TokenService tokenService) {
         this.hikeService = hikeService;
+        this.tokenService = tokenService;
     }
 
     @GetMapping("/")
-    public Hike oui(@RequestParam(name = "hikeId") String hikeId) {
+    public Hike[] getAllHikes(@RequestHeader(name = "Authorization") String rawToken) {
+        String requesterUsername = tokenService.getSubject(rawToken.substring(7));
+        return hikeService.findAllHikesByUsername(requesterUsername);
+    }
+
+
+    @GetMapping("/hike")
+    public Hike findById(@RequestParam(name = "hikeId") String hikeId) {
         Long longHikeId = Long.parseLong(hikeId);
         return hikeService.findHikeById(longHikeId);
     }

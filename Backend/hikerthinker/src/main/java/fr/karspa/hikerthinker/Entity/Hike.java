@@ -21,11 +21,14 @@ public class Hike {
     @Column(unique = true, nullable = false)
     private String hikeTitle;
 
-    private float distance;
+    private float distanceInKm;
 
-    private float vertical;
+    private float positiveVerticalInMeters;
+    private float negativeVerticalInMeters;
 
-    private LocalDate hikeDate;
+    private LocalDate date;
+
+    private float durationInDays;
 
     @Column(nullable = false)
     private boolean isModel;
@@ -33,22 +36,26 @@ public class Hike {
     public Hike() {
     }
 
-    public Hike(ApplicationUser user, String hikeTitle, float distance, float vertical, LocalDate hikeDate, boolean isModel) {
+    public Hike(ApplicationUser user, String hikeTitle, float distanceInKm, float positiveVerticalInMeters,float negativeVerticalInMeters, LocalDate date, boolean isModel, float durationInDays) {
         this.user = user;
         this.hikeTitle = hikeTitle;
-        this.distance = distance;
-        this.vertical = vertical;
-        this.hikeDate = hikeDate;
+        this.distanceInKm = distanceInKm;
+        this.positiveVerticalInMeters = positiveVerticalInMeters;
+        this.negativeVerticalInMeters = negativeVerticalInMeters;
+        this.date = date;
+        this.durationInDays = durationInDays;
         this.isModel = isModel;
     }
 
-    public Hike(Long hikeId, ApplicationUser user, String hikeTitle, float distance, float vertical, LocalDate hikeDate, boolean isModel) {
+    public Hike(Long hikeId, ApplicationUser user, String hikeTitle, float distanceInKm, float positiveVerticalInMeters,float negativeVerticalInMeters, LocalDate date, boolean isModel, float durationInDays) {
         this.hikeId = hikeId;
         this.user = user;
         this.hikeTitle = hikeTitle;
-        this.distance = distance;
-        this.vertical = vertical;
-        this.hikeDate = hikeDate;
+        this.distanceInKm = distanceInKm;
+        this.positiveVerticalInMeters = positiveVerticalInMeters;
+        this.negativeVerticalInMeters = negativeVerticalInMeters;
+        this.date = date;
+        this.durationInDays = durationInDays;
         this.isModel = isModel;
     }
 
@@ -68,28 +75,52 @@ public class Hike {
         this.hikeTitle = hikeTitle;
     }
 
-    public float getDistance() {
-        return distance;
+    public float getDistanceInKm() {
+        return distanceInKm;
     }
 
-    public void setDistance(float distance) {
-        this.distance = distance;
+    public void setDistanceInKm(float distance) {
+        this.distanceInKm = distance;
     }
 
-    public float getVertical() {
-        return vertical;
+    public float getPositiveVerticalInMeters() {
+        return positiveVerticalInMeters;
     }
 
-    public void setVertical(float vertical) {
-        this.vertical = vertical;
+    public void setPositiveVerticalInMeters(float vertical) {
+        this.positiveVerticalInMeters = vertical;
     }
 
-    public LocalDate getHikeDate() {
-        return hikeDate;
+    public ApplicationUser getUser() {
+        return user;
     }
 
-    public void setHikeDate(LocalDate hikeDate) {
-        this.hikeDate = hikeDate;
+    public void setUser(ApplicationUser user) {
+        this.user = user;
+    }
+
+    public float getNegativeVerticalInMeters() {
+        return negativeVerticalInMeters;
+    }
+
+    public void setNegativeVerticalInMeters(float negativeVerticalInMeters) {
+        this.negativeVerticalInMeters = negativeVerticalInMeters;
+    }
+
+    public float getDurationInDays() {
+        return durationInDays;
+    }
+
+    public void setDurationInDays(float durationInDays) {
+        this.durationInDays = durationInDays;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate hikeDate) {
+        this.date = hikeDate;
     }
 
     public boolean isModel() {
