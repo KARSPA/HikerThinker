@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service.service';
-import { Credentials } from '../interfaces/credentials';
-import { UserInfos } from '../interfaces/userInfos';
-import { TokenService } from '../services/token.service';
+import { AuthService } from '../../services/auth.service.service';
+import { Credentials } from '../../interfaces/credentials';
+import { UserInfos } from '../../interfaces/userInfos';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',

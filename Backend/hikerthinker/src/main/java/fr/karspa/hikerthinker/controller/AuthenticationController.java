@@ -3,6 +3,7 @@ package fr.karspa.hikerthinker.controller;
 import fr.karspa.hikerthinker.Entity.ApplicationUser;
 import fr.karspa.hikerthinker.dto.LoginResponseDTO;
 import fr.karspa.hikerthinker.dto.RegistrationDTO;
+import fr.karspa.hikerthinker.dto.RegistrationResponseDTO;
 import fr.karspa.hikerthinker.services.AuthenticationService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
-    public ApplicationUser registerUser(@RequestBody RegistrationDTO body) {
-        return  authenticationService.registerUser(body.getUsername(), body.getEmail(), body.getPassword());
+    public RegistrationResponseDTO registerUser(@RequestBody RegistrationDTO body) {
+        return authenticationService.registerUser(body.getUsername(), body.getEmail(), body.getPassword());
     }
 
     @PostMapping("/login")
