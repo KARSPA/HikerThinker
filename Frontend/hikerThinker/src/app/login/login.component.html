@@ -1,0 +1,5 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="username" placeholder="Username" class="border border-slate-500 rounded-md mr-4 px-1 py-2">
+    <input type="password" formControlName="password" placeholder="Password" class="border border-slate-500 rounded-md mr-4 px-1 py-2">
+    <button type="submit" [disabled]="loginForm.invalid" class="cursor-pointer hover:opacity-80">Login</button>
+</form>
