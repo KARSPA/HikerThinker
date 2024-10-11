@@ -27,7 +27,7 @@ export class HikeService {
           'Authorization' : `Bearer ${this.userInfos?.jwtToken}`
         }
       })
-      .pipe(map(data => data.map(apiHike => this.mapToHike(apiHike)))) //Transforme les données réceptionnées pour fiter l'interface 'Hike'
+      .pipe(map(data => data.map(apiHike => this.mapToHike(apiHike)))) //Transforme les données réceptionnées pour fiter l'interface 'Hike' et enlève les modèles !
   }
 
 

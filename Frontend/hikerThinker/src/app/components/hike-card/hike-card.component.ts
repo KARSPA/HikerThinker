@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Hike } from '../../interfaces/hike';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hike-card',
@@ -11,5 +12,7 @@ import { DatePipe } from '@angular/common';
 export class HikeCardComponent {
 
   @Input() hike : Hike | null = null;
+
+  private router : Router = inject(Router);
 
 }

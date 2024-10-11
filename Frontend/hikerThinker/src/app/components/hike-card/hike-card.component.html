@@ -1,13 +1,13 @@
 
 
 @if (hike) {
-    <div class="hike-container px-3 pt-1 pb-3 rounded-md mb-5 bg-[#739072] text-white shadow-xl flex transition-transform hover:scale-105 cursor-pointer">
+    <div class="hike-container px-3 py-1 rounded-md mb-5 bg-[#739072] text-white shadow-xl flex transition-transform hover:scale-105 cursor-pointer">
 
         <div class="card-content flex-grow">
 
         <p class="text-lg tracking-wide mb-3 text-amber-400">{{hike.title}}</p>
 
-        <div class="card-content flex gap-4">
+        <div class="card-content flex gap-4 pb-3">
 
             <div class="right-side w-full flex flex-col items-center">
                 <div class="distance-container flex gap-4 items-center mb-3">
@@ -44,6 +44,8 @@
         </div>
         </div>
 
-        <button class="w-[100px] h-fit mr-6 self-center bg-amber-500 border-0 py-2 px-4 focus:outline-none hover:opacity-80 rounded cursor-pointer shadow-md">Détails</button>
+        <button class="h-[50px] aspect-square mr-6 self-center bg-amber-500 border-0 focus:outline-none hover:opacity-80 rounded-full shadow-md flex items-center justify-center">
+            <img src="/assets/chevron-e.png" alt="chevron direction est" class="w-[30px] ml-1">
+        </button>
     </div>
 }

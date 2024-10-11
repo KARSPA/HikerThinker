@@ -6,6 +6,9 @@ import fr.karspa.hikerthinker.repository.HikeRepository;
 import fr.karspa.hikerthinker.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 @Service
 public class HikeService {
 
@@ -32,7 +35,8 @@ public class HikeService {
 
         try{
             ApplicationUser user = userRepository.findByUsername(username).get();
-            return hikeRepository.findAllByUser(user).get();
+            Hike[] hikes = hikeRepository.findAllByUser(user).get();
+            return Arrays.stream(hikes).filter(hike -> !hike.isModel()).toArray(Hike[]::new);
         }catch(Exception e){
             return new Hike[0];
         }
