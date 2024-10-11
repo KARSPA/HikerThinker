@@ -1,1 +1,12 @@
-<p>hikes works!</p>
+
+<h1 class="text-3xl title-font text-center tracking-wide mb-10">Vos randonnées</h1>
+
+
+<div class="hikes-container ">
+
+    
+    @for (hike of hikes; track $index) {
+        <app-hike-card [hike]="hike"></app-hike-card> 
+    }
+    
+</div>

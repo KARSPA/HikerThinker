@@ -1,0 +1,49 @@
+
+
+@if (hike) {
+    <div class="hike-container px-3 pt-1 pb-3 rounded-md mb-5 bg-[#739072] text-white shadow-xl flex transition-transform hover:scale-105 cursor-pointer">
+
+        <div class="card-content flex-grow">
+
+        <p class="text-lg tracking-wide mb-3 text-amber-400">{{hike.title}}</p>
+
+        <div class="card-content flex gap-4">
+
+            <div class="right-side w-full flex flex-col items-center">
+                <div class="distance-container flex gap-4 items-center mb-3">
+
+                    <img src="/assets/chemin.png" alt="icone chemin" class="w-8">
+                    <p class="text-lg">{{hike.distance}} km</p>
+                </div>
+                
+                <div class="vertical-infos-container flex justify-evenly w-full">
+                    <div class="negative-container flex gap-4 items-center">
+                        <img src="/assets/fleche-se.png" alt="icone descente" class="w-8">
+                        <p>{{hike.negative}} m</p>
+                    </div>
+                    
+                    <div class="positive-container flex gap-4 items-center">
+                        <img src="/assets/fleche-ne.png" alt="icone montée" class="w-8">
+                        <p>{{hike.positive}} m</p>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="left-side w-full pl-20">
+                <div class="date-container flex gap-4 items-center mb-3">
+                    <img src="/assets/calendrier.png" alt="icone calendrier" class="w-8">
+                    <p class="text-lg">{{hike.date | date:'dd / MM / yy'}}</p>
+                </div>
+                <div class="date-container flex gap-4 items-center ">
+                    <img src="/assets/duree.png" alt="icone durée" class="w-8">
+                    <p>{{hike.days}} jours</p>
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+        <button class="w-[100px] h-fit mr-6 self-center bg-amber-500 border-0 py-2 px-4 focus:outline-none hover:opacity-80 rounded cursor-pointer shadow-md">Détails</button>
+    </div>
+}
