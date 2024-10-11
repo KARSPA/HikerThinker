@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service.service';
+import { AuthService } from '../../services/auth.service';
 import { Credentials } from '../../interfaces/credentials';
 import { UserInfos } from '../../interfaces/userInfos';
 import { TokenService } from '../../services/token.service';
@@ -10,14 +10,15 @@ import { TokenService } from '../../services/token.service';
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
 
   private authService: AuthService = inject(AuthService)
   private tokenService: TokenService = inject(TokenService)
   private router: Router = inject(Router)
+
+  loginError : string = '';
 
   loginForm: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -35,9 +36,15 @@ export class LoginComponent {
       this.authService.login(credentials).subscribe({
         next: (value : UserInfos) => {
           console.log(value);
-          this.tokenService.saveUserInfos(value)
+          if(value.userId === null){
+            console.log("Erreur de connexion !");
+            this.loginError = 'Erreur, vérifiez vos identifiants.';
+            return;
+          }
+          this.tokenService.saveUserInfos(value);
+          this.router.navigate(['home'])
         },
-        error : error => console.error()
+        error : error => console.log(error)
       })
     }
   }

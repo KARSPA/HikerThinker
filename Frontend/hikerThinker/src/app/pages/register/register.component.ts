@@ -1,23 +1,23 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RegisterCredentials } from '../../interfaces/register-credentials';
-import { AuthService } from '../../services/auth.service.service';
+import { AuthService } from '../../services/auth.service';
 import { RegisterInfos } from '../../interfaces/register-infos';
 import { Router } from '@angular/router';
-import { samePasswordValidator } from '../../validators/same-password';
+import { samePasswordValidator } from '../../_helpers/validators/same-password';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent {
 
   private authService : AuthService = inject(AuthService)
   private router : Router = inject(Router);
 
+  registerHttpError : string = '';
 
   registerForm: FormGroup = new FormGroup({
     username : new FormControl('',[Validators.required, Validators.minLength(3)]),
@@ -59,7 +59,7 @@ export class RegisterComponent {
           },
           error : error => {
             console.log(error);
-        
+            this.registerHttpError = "Erreur lors de l'enregistrement. Pseudo ou email non disponible."
           }
         })
       }

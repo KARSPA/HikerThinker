@@ -1,21 +1,15 @@
 
-<h1>Composant register</h1>
-
-<p class="text-amber-300"> Statut de formulaire : {{ registerForm.status }}</p>
-<!-- 
-@if (registerForm.touched && registerForm.invalid) {
-    <p class="text-red-600">Vérifiez vos champs !</p>
-} -->
-
-
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center bg-[#4F6F52] py-10 px-4 w-[700px] mx-auto rounded-lg shadow-xl">
 
     <h2 class="form-title mb-3 text-white text-xl"> Inscrivez-vous !</h2>
 
-    <div class="form-errors text-amber-300 h-[20px] mb-8">
+    <div class="form-errors text-amber-300 h-[20px] mb-8 flex flex-col items-center">
+
+        <p class="text-red-600">{{registerHttpError}}</p>
+
         @if (registerForm.touched && registerForm.invalid) {
-            <p class="text-lg ">Vérifiez vos champs !</p>
+            <p class="text-lg ">Vérifiez vos champs.</p>
         }
     
     </div>
@@ -67,7 +61,7 @@
 
     </div>
 
-    <div class="h-fit flex flex-col items-center min-w-[50%] ">
+    <div class="h-fit flex flex-col items-center min-w-[50%]">
 
         <input type="password" formControlName="confirmPassword" placeholder="Confirmer" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
