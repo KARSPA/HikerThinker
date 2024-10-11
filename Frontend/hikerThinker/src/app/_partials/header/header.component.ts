@@ -12,12 +12,11 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent implements OnInit{
 
   private authService : AuthService = inject(AuthService);
-  private router : Router = inject(Router);
 
   isLogged : boolean = false;
   userInfos : UserInfos|null = null;
 
-  //On s'abonne aux évènements de routing pour vérifier si on est connecté ou non.
+  //On s'abonne aux attributs observables de AuthService pour savoir si on est connecté ou non.
   ngOnInit(): void {
     
     this.authService.isLogged.subscribe(isLogged => {

@@ -36,27 +36,17 @@ export class LoginComponent {
       this.authService.login(credentials).subscribe({
         next: (value : UserInfos) => {
           console.log(value);
-          if(value.userId === null){
+          if(value.userId === null){ //Le serveur retourne un utilisateur vide si aucun n'existe. On gère ce cas ici !
             console.log("Erreur de connexion !");
             this.loginError = 'Erreur, vérifiez vos identifiants.';
             return;
           }
-          this.tokenService.saveUserInfos(value);
+          this.authService.handleLoginSuccess(value);
           this.router.navigate(['home'])
         },
         error : error => console.log(error)
       })
     }
   }
-
-  
-  // getErrorMessages(type: string): string {
-  //   if (this.loginForm.get(type)?.hasError('required')) {
-  //     return 'Le champ est obligatoire'
-  //   } else if (this.loginForm.get(type)?.hasError('pattern')) {
-  //     return 'Ce n\'est pas un email'
-  //   }
-  //   return ''
-  // }
 
 }

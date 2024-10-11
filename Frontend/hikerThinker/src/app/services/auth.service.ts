@@ -57,5 +57,13 @@ export class AuthService {
     return this.userInfosSubject.asObservable();
   }
 
+  get isLoggedValue() : boolean{
+    return this.isLoggedSubject.value;
+  }
+  
+  get userInfosValue() : UserInfos|null{
+    return this.userInfosSubject.value;
+  }
+
 
 }

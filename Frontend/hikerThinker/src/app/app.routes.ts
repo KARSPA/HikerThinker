@@ -6,14 +6,15 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ModelsComponent } from './pages/models/models.component';
+import { authGuard } from './_helpers/auth.guard';
 
 export const routes: Routes = [
     {path:'home', component: HomeComponent},
     {path:'login', component: LoginComponent},
-    {path:'logout', component: LogoutComponent},
+    {path:'logout', component: LogoutComponent, canActivate: [authGuard]},
     {path:'register', component: RegisterComponent},
-    {path:'hikes', component: HikesComponent},
-    {path:'models', component: ModelsComponent},
+    {path:'hikes', component: HikesComponent, canActivate: [authGuard]},
+    {path:'models', component: ModelsComponent, canActivate: [authGuard]},
     {path:'contact', component: ContactComponent},
 
 ];
