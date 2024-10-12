@@ -46,4 +46,16 @@ public class HikeService {
         }
     }
 
+
+    public HikeDTO createNewHike(HikeDTO hikeDTO, String username) {
+        try{
+            //On converti notre hikeDTO en entité JPA 'Hike'
+            ApplicationUser user = userRepository.findByUsername(username).get();
+            Hike newHike = hikeDTO.toHike(user);
+            return hikeRepository.save(newHike).toDTO(false);
+        }catch (Exception e){
+            return new HikeDTO();
+        }
+    }
+
 }

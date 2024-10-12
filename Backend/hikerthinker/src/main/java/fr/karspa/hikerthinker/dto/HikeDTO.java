@@ -1,5 +1,6 @@
 package fr.karspa.hikerthinker.dto;
 
+import fr.karspa.hikerthinker.Entity.ApplicationUser;
 import fr.karspa.hikerthinker.Entity.Equipment;
 import fr.karspa.hikerthinker.Entity.Hike;
 
@@ -144,6 +145,10 @@ public class HikeDTO {
 
     public void setEquipments(List<Equipment> equipments) {
         this.equipments = equipments;
+    }
+
+    public Hike toHike(ApplicationUser user){
+        return new Hike(user,this.title,this.distance,this.positive,this.negative,this.date,this.isModel,this.duration,this.equipments);
     }
 
     @Override
