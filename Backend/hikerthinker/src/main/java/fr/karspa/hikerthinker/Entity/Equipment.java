@@ -3,6 +3,8 @@ package fr.karspa.hikerthinker.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "equipment")
 public class Equipment {
@@ -19,19 +21,21 @@ public class Equipment {
     @Column(nullable = false)
     private float weight;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "equipment_hike_junction",
-            joinColumns = {@JoinColumn(name = "equipment_id")},
-            inverseJoinColumns = {@JoinColumn(name = "hike_id")}
-    )
-    private Hike hikes;
+    @ManyToMany(mappedBy = "equipments")
+    private List<Hike> hikes;
 
     public Equipment() {
+    }
+
+    public Equipment(String name, String description, float weight, Category category) {
+        this.name = name;
+        this.description = description;
+        this.weight = weight;
+        this.category = category;
     }
 
     public Equipment(Long equipmentId, String name, String description, float weight, Category category) {
@@ -80,5 +84,16 @@ public class Equipment {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "equipmentId=" + equipmentId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", weight=" + weight +
+                ", category=" + category.toString() +
+                '}';
     }
 }

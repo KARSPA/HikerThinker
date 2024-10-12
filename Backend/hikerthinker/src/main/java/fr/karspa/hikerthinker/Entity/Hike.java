@@ -1,9 +1,11 @@
 package fr.karspa.hikerthinker.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import fr.karspa.hikerthinker.dto.HikeDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "hikes")
@@ -14,14 +16,14 @@ public class Hike {
     @Column(name = "hike_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private ApplicationUser user;
 
 
     @Column(unique = true, nullable = false)
-    private String hikeTitle;
+    private String title;
 
     private float distanceInKm;
 
@@ -35,30 +37,40 @@ public class Hike {
     @Column(nullable = false)
     private boolean isModel;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "hike_equipment_junction",
+            joinColumns = @JoinColumn(name = "hike_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id")
+    )
+    private List<Equipment> equipments;
+
     public Hike() {
     }
 
-    public Hike(ApplicationUser user, String hikeTitle, float distanceInKm, float positiveVerticalInMeters,float negativeVerticalInMeters, LocalDate date, boolean isModel, float durationInDays) {
+    public Hike(ApplicationUser user, String title, float distanceInKm, float positiveVerticalInMeters, float negativeVerticalInMeters, LocalDate date, boolean isModel, float durationInDays, List<Equipment> equipments) {
         this.user = user;
-        this.hikeTitle = hikeTitle;
+        this.title = title;
         this.distanceInKm = distanceInKm;
         this.positiveVerticalInMeters = positiveVerticalInMeters;
         this.negativeVerticalInMeters = negativeVerticalInMeters;
         this.date = date;
         this.durationInDays = durationInDays;
         this.isModel = isModel;
+        this.equipments = equipments;
     }
 
-    public Hike(Long id, ApplicationUser user, String hikeTitle, float distanceInKm, float positiveVerticalInMeters, float negativeVerticalInMeters, LocalDate date, boolean isModel, float durationInDays) {
+    public Hike(Long id, ApplicationUser user, String title, float distanceInKm, float positiveVerticalInMeters, float negativeVerticalInMeters, LocalDate date, boolean isModel, float durationInDays, List<Equipment> equipments) {
         this.id = id;
         this.user = user;
-        this.hikeTitle = hikeTitle;
+        this.title = title;
         this.distanceInKm = distanceInKm;
         this.positiveVerticalInMeters = positiveVerticalInMeters;
         this.negativeVerticalInMeters = negativeVerticalInMeters;
         this.date = date;
         this.durationInDays = durationInDays;
         this.isModel = isModel;
+        this.equipments = equipments;
     }
 
     public Long getId() {
@@ -69,12 +81,12 @@ public class Hike {
         this.id = hikeId;
     }
 
-    public String getHikeTitle() {
-        return hikeTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setHikeTitle(String hikeTitle) {
-        this.hikeTitle = hikeTitle;
+    public void setTitle(String hikeTitle) {
+        this.title = hikeTitle;
     }
 
     public float getDistanceInKm() {
@@ -131,5 +143,40 @@ public class Hike {
 
     public void setModel(boolean model) {
         isModel = model;
+    }
+
+
+    public HikeDTO toDTO(boolean withEquipment) {
+
+        if(withEquipment) {
+            if(this.id != null){
+                return new HikeDTO(this.id,this.title,this.user.getUserId(),this.distanceInKm, this.negativeVerticalInMeters, this.positiveVerticalInMeters,this.date,this.durationInDays,this.isModel, this.equipments);
+            }else{
+                return new HikeDTO(this.title,this.user.getUserId(),this.distanceInKm, this.negativeVerticalInMeters, this.positiveVerticalInMeters,this.date,this.durationInDays,this.isModel, this.equipments);
+            }
+        }else{
+            if(this.id != null){
+                return new HikeDTO(this.id,this.title,this.user.getUserId(),this.distanceInKm, this.negativeVerticalInMeters, this.positiveVerticalInMeters,this.date,this.durationInDays,this.isModel);
+            }else{
+                return new HikeDTO(this.title,this.user.getUserId(),this.distanceInKm, this.negativeVerticalInMeters, this.positiveVerticalInMeters,this.date,this.durationInDays,this.isModel);
+            }
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "Hike{" +
+                "id=" + id +
+                ", user=" + user +
+                ", title='" + title + '\'' +
+                ", distanceInKm=" + distanceInKm +
+                ", positiveVerticalInMeters=" + positiveVerticalInMeters +
+                ", negativeVerticalInMeters=" + negativeVerticalInMeters +
+                ", date=" + date +
+                ", durationInDays=" + durationInDays +
+                ", isModel=" + isModel +
+                ", equipments=" + equipments.toString() +
+                '}';
     }
 }

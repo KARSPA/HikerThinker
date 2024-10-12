@@ -1,6 +1,7 @@
 package fr.karspa.hikerthinker.controller;
 
 import fr.karspa.hikerthinker.Entity.Hike;
+import fr.karspa.hikerthinker.dto.HikeDTO;
 import fr.karspa.hikerthinker.services.HikeService;
 import fr.karspa.hikerthinker.services.TokenService;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -24,14 +25,14 @@ public class HikeController {
     }
 
     @GetMapping("/")
-    public Hike[] getAllHikes(@RequestHeader(name = "Authorization") String rawToken) {
+    public HikeDTO[] getAllHikes(@RequestHeader(name = "Authorization") String rawToken) {
         String requesterUsername = tokenService.getSubject(rawToken.substring(7));
         return hikeService.findAllHikesByUsername(requesterUsername);
     }
 
 
     @GetMapping("/hike")
-    public Hike findById(@RequestParam(name = "hikeId") String hikeId, @RequestHeader(name = "Authorization") String rawToken) {
+    public HikeDTO findById(@RequestParam(name = "hikeId") String hikeId, @RequestHeader(name = "Authorization") String rawToken) {
         String requesterUsername = tokenService.getSubject(rawToken.substring(7));
         Long longHikeId = Long.parseLong(hikeId);
         return hikeService.findHikeByIdAndUser(requesterUsername, longHikeId);

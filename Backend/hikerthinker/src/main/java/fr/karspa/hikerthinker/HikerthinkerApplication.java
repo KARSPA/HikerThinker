@@ -21,6 +21,7 @@ public class HikerthinkerApplication {
 		SpringApplication.run(HikerthinkerApplication.class, args);
 	}
 
+	//POur les changements de config de JPA avec applications.properties sur create-drop, permet de créer un user de base.
 	//En gros, a chaque lancement de l'application, on vérifie si il y a déja des roles dans la BDD, si il n'y en a pas,
 	//c'est qu'elle n'est pas encore créée par Jpa, donc on ajoute des users à la main.
 	//On return direct si on trouve "ADMIN" car ça indique que notre BDD est déja hydratée.

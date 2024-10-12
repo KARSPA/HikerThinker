@@ -1,0 +1,83 @@
+
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center bg-[#4F6F52] py-10 px-4 w-[700px] mx-auto rounded-lg shadow-xl">
+
+    <h2 class="form-title mb-3 text-white text-xl"> Inscrivez-vous !</h2>
+
+    <div class="form-errors text-amber-300 h-[20px] mb-8 flex flex-col items-center">
+
+        <p class="text-red-600">{{registerHttpError}}</p>
+
+        @if (registerForm.touched && registerForm.invalid) {
+            <p class="text-lg ">Vérifiez vos champs.</p>
+        }
+    
+    </div>
+
+    <div class="h-fit flex flex-col items-center min-w-[50%] ">
+        <input type="text" formControlName="username" placeholder="Votre pseudo" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+
+        <div class="input-errors text-amber-300 h-8">
+            @if ((username?.touched || (registerForm.touched && registerForm.invalid)) && username?.hasError('required')) {
+                <p class="text-sm">{{getErrorMessage('required')}}</p>
+            }
+            @if ((username?.touched || (registerForm.touched && registerForm.invalid)) && username?.hasError('minlength')) {
+                <p class="text-sm">{{getErrorMessage('minlength',3)}}</p>
+            }
+        </div>
+
+    </div>
+
+    <div class="h-fit flex flex-col items-center min-w-[50%]">
+
+        <input type="email" formControlName="email" placeholder="Votre email" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+
+        <div class="input-errors text-amber-300 h-10">
+            @if ((email?.touched || (registerForm.touched && registerForm.invalid)) && email?.hasError('required')) {
+                <p class="text-sm">{{getErrorMessage('required')}}</p>
+            }
+            @if ((email?.touched || (registerForm.touched && registerForm.invalid)) && email?.hasError('email')) {
+                <p class="text-sm">{{getErrorMessage('email')}}</p>
+            }
+        </div>
+
+    </div>
+
+    <div class="h-fit flex flex-col items-center min-w-[50%] ">
+
+        <div class="passwords-errors text-amber-300 h-8 mb-2">
+            @if (registerForm.hasError('arePwdEqual') && (password?.touched && confirmPassword?.touched)) {
+                <p>{{getErrorMessage('notSamePassword')}}</p>
+            }
+        </div>
+        
+        <input type="password" formControlName="password" placeholder="Votre mot de passe" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+
+        <div class="input-errors text-amber-300 h-8">
+            @if ((password?.touched || (registerForm.touched && registerForm.invalid)) && password?.hasError('required')) {
+                <p class="text-sm">{{getErrorMessage('required')}}</p>
+            }
+        </div>
+
+    </div>
+
+    <div class="h-fit flex flex-col items-center min-w-[50%]">
+
+        <input type="password" formControlName="confirmPassword" placeholder="Confirmer" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+
+        <div class="input-errors text-amber-300 h-8">
+            @if ((confirmPassword?.touched || (registerForm.touched && registerForm.invalid)) && confirmPassword?.hasError('required')) {
+                <p class="text-sm">{{getErrorMessage('required')}}</p>
+            }
+        </div>
+
+    </div>
+
+    
+
+
+    
+   
+
+    <button type="submit" class="text-white mt-5 cursor-pointer hover:opacity-80 rounded-md bg-amber-500 px-2 py-3 shadow-md">Créer un compte</button>
+</form>
