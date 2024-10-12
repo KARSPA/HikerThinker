@@ -1,9 +1,12 @@
 
 <h1 class="text-3xl title-font text-center tracking-wide mb-10">Vos randonnées</h1>
 
+<div class="new-hike-container mb-10 w-full flex justify-center items-center">
+    <a routerLink="/hikes/create" class="ml-4 inline-flex text-white bg-amber-500 border-0 py-2 px-6 focus:outline-none hover:opacity-80  rounded text-lg cursor-pointer shadow-md">Nouvelle randonnée</a>
+
+</div>
 
 <div class="hikes-container ">
-
     
     @for (hike of hikes; track $index) {
         <app-hike-card [hike]="hike"></app-hike-card> 

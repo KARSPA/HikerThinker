@@ -2,6 +2,7 @@ package fr.karspa.hikerthinker.services;
 
 import fr.karspa.hikerthinker.Entity.ApplicationUser;
 import fr.karspa.hikerthinker.Entity.Hike;
+import fr.karspa.hikerthinker.dto.HikeDTO;
 import fr.karspa.hikerthinker.repository.HikeRepository;
 import fr.karspa.hikerthinker.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -20,25 +21,28 @@ public class HikeService {
         this.userRepository = userRepository;
     }
 
-    public Hike findHikeByIdAndUser(String username, Long hikeId){
+    public HikeDTO findHikeByIdAndUser(String username, Long hikeId){
 
         try{
             ApplicationUser user = userRepository.findByUsername(username).get();
-            return hikeRepository.findHikeByIdAndUser(hikeId, user).get();
+            return hikeRepository.findHikeByIdAndUser(hikeId, user).get().toDTO(true);
         }catch(Exception e){
-            return new Hike();
+            return new HikeDTO();
         }
     }
 
 
-    public Hike[] findAllHikesByUsername(String username) {
+    public HikeDTO[] findAllHikesByUsername(String username) {
 
         try{
             ApplicationUser user = userRepository.findByUsername(username).get();
             Hike[] hikes = hikeRepository.findAllByUser(user).get();
-            return Arrays.stream(hikes).filter(hike -> !hike.isModel()).toArray(Hike[]::new);
+//            for (Hike hike : hikes) {
+//                System.out.println(hike);
+//            }
+            return Arrays.stream(hikes).filter(hike -> !hike.isModel()).map(hike->hike.toDTO(false)).toArray(HikeDTO[]::new);
         }catch(Exception e){
-            return new Hike[0];
+            return new HikeDTO[0];
         }
     }
 

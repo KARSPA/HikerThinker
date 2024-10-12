@@ -1,10 +1,10 @@
 export interface Hike {
     id : number,
-    date : Date,
-    distance : number,
-    days : number,
     title : string,
+    distance : number,
     negative : number,
     positive : number,
+    date : Date,
+    duration : number,
     model : boolean
 }

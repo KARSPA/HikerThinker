@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { HikeService } from '../../services/hike.service';
 import { Hike } from '../../interfaces/hike';
 import { HikeCardComponent } from "../../components/hike-card/hike-card.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-hikes',
   standalone: true,
-  imports: [HikeCardComponent],
+  imports: [HikeCardComponent, RouterLink],
   templateUrl: './hikes.component.html'
 })
 export class HikesComponent implements OnInit{
