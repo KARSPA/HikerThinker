@@ -8,17 +8,17 @@
 
         <p class="text-red-600">{{registerHttpError}}</p>
 
-        @if (registerForm.touched && registerForm.invalid) {
+        @if ((registerForm.touched && registerForm.invalid) || this.isSubmitClicked) {
             <p class="text-lg ">Vérifiez vos champs.</p>
         }
     
     </div>
 
     <div class="h-fit flex flex-col items-center min-w-[50%] ">
-        <input type="text" formControlName="username" placeholder="Votre pseudo" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+        <input type="text" formControlName="username" required placeholder="Votre pseudo" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-8">
-            @if ((username?.touched || (registerForm.touched && registerForm.invalid)) && username?.hasError('required')) {
+            @if ((username?.touched || (registerForm.touched && registerForm.invalid) || this.isSubmitClicked) && username?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
             @if ((username?.touched || (registerForm.touched && registerForm.invalid)) && username?.hasError('minlength')) {
@@ -30,10 +30,10 @@
 
     <div class="h-fit flex flex-col items-center min-w-[50%]">
 
-        <input type="email" formControlName="email" placeholder="Votre email" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+        <input type="email" formControlName="email" required placeholder="Votre email" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-10">
-            @if ((email?.touched || (registerForm.touched && registerForm.invalid)) && email?.hasError('required')) {
+            @if ((email?.touched || (registerForm.touched && registerForm.invalid) || this.isSubmitClicked) && email?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
             @if ((email?.touched || (registerForm.touched && registerForm.invalid)) && email?.hasError('email')) {
@@ -51,10 +51,10 @@
             }
         </div>
         
-        <input type="password" formControlName="password" placeholder="Votre mot de passe" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+        <input type="password" formControlName="password" required placeholder="Votre mot de passe" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-8">
-            @if ((password?.touched || (registerForm.touched && registerForm.invalid)) && password?.hasError('required')) {
+            @if ((password?.touched || (registerForm.touched && registerForm.invalid) || this.isSubmitClicked) && password?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
         </div>
@@ -63,21 +63,16 @@
 
     <div class="h-fit flex flex-col items-center min-w-[50%]">
 
-        <input type="password" formControlName="confirmPassword" placeholder="Confirmer" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+        <input type="password" formControlName="confirmPassword" required placeholder="Confirmer" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-8">
-            @if ((confirmPassword?.touched || (registerForm.touched && registerForm.invalid)) && confirmPassword?.hasError('required')) {
+            @if ((confirmPassword?.touched || (registerForm.touched && registerForm.invalid) || this.isSubmitClicked) && confirmPassword?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
         </div>
 
     </div>
 
-    
-
-
-    
-   
 
     <button type="submit" class="text-white mt-5 cursor-pointer hover:opacity-80 rounded-md bg-amber-500 px-2 py-3 shadow-md">Créer un compte</button>
 </form>
