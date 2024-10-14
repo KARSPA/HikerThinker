@@ -8,7 +8,7 @@
 
         <p class="text-red-600">{{registerHttpError}}</p>
 
-        @if ((registerForm.touched && registerForm.invalid) || this.isSubmitClicked) {
+        @if ((registerForm.touched && registerForm.invalid) || hasBeenSubmitted) {
             <p class="text-lg ">Vérifiez vos champs.</p>
         }
     
@@ -18,7 +18,7 @@
         <input type="text" formControlName="username" required placeholder="Votre pseudo" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-8">
-            @if ((username?.touched || (registerForm.touched && registerForm.invalid) || this.isSubmitClicked) && username?.hasError('required')) {
+            @if ((username?.touched || hasBeenSubmitted) && username?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
             @if ((username?.touched || (registerForm.touched && registerForm.invalid)) && username?.hasError('minlength')) {
@@ -33,7 +33,7 @@
         <input type="email" formControlName="email" required placeholder="Votre email" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-10">
-            @if ((email?.touched || (registerForm.touched && registerForm.invalid) || this.isSubmitClicked) && email?.hasError('required')) {
+            @if ((email?.touched || hasBeenSubmitted) && email?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
             @if ((email?.touched || (registerForm.touched && registerForm.invalid)) && email?.hasError('email')) {
@@ -46,7 +46,7 @@
     <div class="h-fit flex flex-col items-center min-w-[50%] ">
 
         <div class="passwords-errors text-amber-300 h-8 mb-2">
-            @if (registerForm.hasError('arePwdEqual') && (password?.touched && confirmPassword?.touched)) {
+            @if (registerForm.hasError('arePwdEqual') && ((password?.touched && confirmPassword?.touched) || hasBeenSubmitted)) {
                 <p>{{getErrorMessage('notSamePassword')}}</p>
             }
         </div>
@@ -54,7 +54,7 @@
         <input type="password" formControlName="password" required placeholder="Votre mot de passe" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-8">
-            @if ((password?.touched || (registerForm.touched && registerForm.invalid) || this.isSubmitClicked) && password?.hasError('required')) {
+            @if ((password?.touched || hasBeenSubmitted) && password?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
         </div>
@@ -66,7 +66,7 @@
         <input type="password" formControlName="confirmPassword" required placeholder="Confirmer" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-8">
-            @if ((confirmPassword?.touched || (registerForm.touched && registerForm.invalid) || this.isSubmitClicked) && confirmPassword?.hasError('required')) {
+            @if ((confirmPassword?.touched || hasBeenSubmitted) && confirmPassword?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
         </div>

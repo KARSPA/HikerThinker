@@ -1,5 +1,5 @@
 export interface Hike {
-    id : number,
+    id : number|null,
     title : string,
     distance : number,
     negative : number,

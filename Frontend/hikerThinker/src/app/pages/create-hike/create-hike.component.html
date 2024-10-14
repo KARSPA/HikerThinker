@@ -8,7 +8,7 @@
 
         <!-- <p class="text-red-600">{{registerHttpError}}</p> -->
 
-        @if (hikeForm.touched && hikeForm.invalid) {
+        @if ((hasBeenSubmitted && hikeForm.invalid)) {
             <p class="text-lg ">Vérifiez vos champs.</p>
         }
     
@@ -21,15 +21,19 @@
         <input id="hikeTitle" type="text" formControlName="title" placeholder="Comment appeler votre sortie ?" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-8">
-            @if ((title?.touched || (hikeForm.touched && hikeForm.invalid)) && title?.hasError('required')) {
+            @if ((title?.touched || hasBeenSubmitted) && title?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
-            @if ((title?.touched || (hikeForm.touched && hikeForm.invalid)) && title?.hasError('minlength')) {
+            @if ((title?.touched || hasBeenSubmitted) && title?.hasError('minlength')) {
                 <p class="text-sm">{{getErrorMessage('minlength',3)}}</p>
             }
 
-            @if ((title?.touched || (hikeForm.touched && hikeForm.invalid)) && title?.hasError('maxlength')) {
+            @if ((title?.touched || hasBeenSubmitted) && title?.hasError('maxlength')) {
                 <p class="text-sm">{{getErrorMessage('maxlength',50)}}</p>
+            }
+
+            @if ((title?.touched || hasBeenSubmitted) && title?.hasError('pattern')) {
+                <p class="text-sm">{{getErrorMessage('specialChar')}}</p>
             }
         </div>
 
@@ -41,11 +45,14 @@
         <input id="hikeDistance" type="number" formControlName="distance" placeholder="Longueur de la randonnée (en kilomètres)" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-10">
-            @if ((distance?.touched || (hikeForm.touched && hikeForm.invalid)) && distance?.hasError('required')) {
+            @if ((distance?.touched || hasBeenSubmitted) && distance?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
-            @if ((distance?.touched || (hikeForm.touched && hikeForm.invalid)) && distance?.hasError('notNumber')) {
-                <p class="text-sm">{{getErrorMessage('notNumber')}}</p>
+            @if ((distance?.touched || hasBeenSubmitted) && distance?.hasError('min')) {
+                <p class="text-sm">{{getErrorMessage('min')}}</p>
+            }
+            @if ((distance?.touched || hasBeenSubmitted) && distance?.hasError('max')) {
+                <p class="text-sm">{{getErrorMessage('max')}}</p>
             }
         </div>
 
@@ -57,11 +64,14 @@
         <input id="hikeNegative" type="number" formControlName="negative" placeholder="Dénivelé négatif (en mètres)" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-10">
-            @if ((negative?.touched || (hikeForm.touched && hikeForm.invalid)) && negative?.hasError('required')) {
+            @if ((negative?.touched || hasBeenSubmitted) && negative?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
-            @if ((negative?.touched || (hikeForm.touched && hikeForm.invalid)) && negative?.hasError('notNumber')) {
-                <p class="text-sm">{{getErrorMessage('notNumber')}}</p>
+            @if ((negative?.touched || hasBeenSubmitted) && negative?.hasError('min')) {
+                <p class="text-sm">{{getErrorMessage('min')}}</p>
+            }
+            @if ((negative?.touched || hasBeenSubmitted) && negative?.hasError('max')) {
+                <p class="text-sm">{{getErrorMessage('max')}}</p>
             }
         </div>
 
@@ -70,14 +80,17 @@
 
         <label for="hikePositive" class="self-start text-white mb-1">Dénivelé positif : </label>
 
-        <input id="hikePositive" type="number" formControlName="negative" placeholder="Dénivelé positif (en mètres)" class="border border-slate-500 rounded-md px-1 py-2 w-full">
+        <input id="hikePositive" type="number" formControlName="positive" placeholder="Dénivelé positif (en mètres)" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-10">
-            @if ((negative?.touched || (hikeForm.touched && hikeForm.invalid)) && negative?.hasError('required')) {
+            @if ((positive?.touched || hasBeenSubmitted) && positive?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
-            @if ((negative?.touched || (hikeForm.touched && hikeForm.invalid)) && negative?.hasError('notNumber')) {
-                <p class="text-sm">{{getErrorMessage('notNumber')}}</p>
+            @if ((positive?.touched || hasBeenSubmitted) && positive?.hasError('min')) {
+                <p class="text-sm">{{getErrorMessage('min')}}</p>
+            }
+            @if ((positive?.touched || hasBeenSubmitted) && positive?.hasError('max')) {
+                <p class="text-sm">{{getErrorMessage('max')}}</p>
             }
         </div>
 
@@ -88,11 +101,14 @@
         <input id="hikeDuration" type="number" formControlName="duration" placeholder="Durée de la rando (en jours)" class="border border-slate-500 rounded-md px-1 py-2 w-full">
 
         <div class="input-errors text-amber-300 h-10">
-            @if ((duration?.touched || (hikeForm.touched && hikeForm.invalid)) && duration?.hasError('required')) {
+            @if ((duration?.touched || hasBeenSubmitted) && duration?.hasError('required')) {
                 <p class="text-sm">{{getErrorMessage('required')}}</p>
             }
-            @if ((duration?.touched || (hikeForm.touched && hikeForm.invalid)) && duration?.hasError('notNumber')) {
-                <p class="text-sm">{{getErrorMessage('notNumber')}}</p>
+            @if ((duration?.touched || hasBeenSubmitted) && duration?.hasError('min')) {
+                <p class="text-sm">{{getErrorMessage('min')}}</p>
+            }
+            @if ((duration?.touched || hasBeenSubmitted) && duration?.hasError('max')) {
+                <p class="text-sm">{{getErrorMessage('max')}}</p>
             }
         </div>
 
@@ -113,5 +129,5 @@
 
    
 
-    <button type="submit" [disabled]="hikeForm.invalid" class="text-white mt-5 cursor-pointer hover:opacity-80 rounded-md bg-amber-500 px-2 py-3 shadow-md">Créer un compte</button>
+    <button type="submit" class="text-white mt-5 cursor-pointer hover:opacity-80 rounded-md bg-amber-500 px-2 py-3 shadow-md">Créer la randonnée</button>
 </form>
