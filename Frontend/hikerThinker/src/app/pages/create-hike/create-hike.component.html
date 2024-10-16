@@ -6,7 +6,7 @@
 
     <div class="form-errors text-amber-300 h-[20px] mb-8 flex flex-col items-center">
 
-        <!-- <p class="text-red-600">{{registerHttpError}}</p> -->
+        <p class="text-red-600">{{httpErrorMessage}}</p>
 
         @if ((hasBeenSubmitted && hikeForm.invalid)) {
             <p class="text-lg ">Vérifiez vos champs.</p>
@@ -34,6 +34,9 @@
 
             @if ((title?.touched || hasBeenSubmitted) && title?.hasError('pattern')) {
                 <p class="text-sm">{{getErrorMessage('specialChar')}}</p>
+            }
+            @if ((title?.touched || hasBeenSubmitted) && title?.hasError('isBlank')) {
+                <p class="text-sm">{{getErrorMessage('notBlank')}}</p>
             }
         </div>
 

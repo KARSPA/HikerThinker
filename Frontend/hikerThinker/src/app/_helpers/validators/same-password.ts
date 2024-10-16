@@ -1,4 +1,4 @@
-/** An actor's name can't match the actor's role */
+/** Les mots de passes doivent être égaux à l'inscription */
 
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 

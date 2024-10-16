@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HikeService } from '../../services/hike.service';
 import { Hike } from '../../interfaces/hike';
+import { notBlankValidator } from '../../_helpers/validators/notBlank';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-hike',
@@ -13,6 +15,7 @@ export class CreateHikeComponent {
 
 
   private hikeService : HikeService = inject(HikeService);
+  private router : Router = inject(Router);
 
   // distanceRegPattern : string = "/^(([1-9]{1}[\d]{0,5}){1}(?:[\.\,]\d{1,2})?)$/"; // Nombre décimal jusqu'au centième max, séparateur décimal '.' ou ',', plus petit que 999 999.99
 
@@ -20,7 +23,7 @@ export class CreateHikeComponent {
 
 
   hikeForm : FormGroup = new FormGroup({
-    title : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern("[A-Za-z0-9_\\-\\/\\.\\ ]*")]),
+    title : new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern("[A-Za-z0-9_\\-\\/\\.\\ ]*"), notBlankValidator()]),
     distance : new FormControl('',[Validators.required, Validators.min(0), Validators.max(100000)]), //On formattera le résultat plus tard.
     negative : new FormControl('',[Validators.required, Validators.min(0), Validators.max(100000)]),
     positive : new FormControl('',[Validators.required, Validators.min(0), Validators.max(100000)]),
@@ -29,7 +32,7 @@ export class CreateHikeComponent {
   })
 
   hasBeenSubmitted : boolean = false;
-
+  httpErrorMessage : string = "";
 
   get title(){
     return this.hikeForm.get('title');
@@ -61,7 +64,7 @@ export class CreateHikeComponent {
     if(this.hikeForm.valid){
       const newHike : Hike = {
         id : null,
-        title : this.title?.value,
+        title : this.title?.value.trim(),
         distance : this.distance?.value,
         negative : this.negative?.value,
         positive : this.positive?.value,
@@ -74,8 +77,14 @@ export class CreateHikeComponent {
       this.hikeService.addAHike(newHike).subscribe({
         next : (value) => {
           console.log(value) //Si retour avec id et infos ok, alors redirect vers la liste de randos (plus tard le détails de cette randonnée).
+          if(value.id !== null){
+            this.router.navigate(['hikes'])
+          }
         }, 
-        error : (err) => console.log(err) //Si retour avec id null alors pas créer, afficher erreur de validation
+        error : (err) => {
+          console.log(err);
+          this.httpErrorMessage = "Erreur lors de l'enregistrement. Une erreur de réseau est survenue. Essayez en vous reconnectant."
+        } //Si retour avec id null alors pas créer, afficher erreur de validation
       })
     }
   }
@@ -103,6 +112,9 @@ export class CreateHikeComponent {
         break;
       case 'max':
         errorMessage = `Un peu grand quand même. 100 000 maximum.`
+        break;
+      case 'notBlank':
+        errorMessage = `Ne doit pas être 'vide'.`
         break;
 
     }
