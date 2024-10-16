@@ -15,4 +15,10 @@ export class HikeCardComponent {
 
   private router : Router = inject(Router);
 
+
+  goToDetails(){
+    console.log('click ok')
+    this.router.navigate(['/hike/', this.hike?.id])
+  }
+
 }

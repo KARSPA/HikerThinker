@@ -12,6 +12,7 @@ export class HikeService {
 
   private ALL_HIKES_URL = 'http://localhost:8000/hikes/';
   private CREATE_HIKE_URL = 'http://localhost:8000/hikes/create';
+  private HIKE_BY_ID = 'http://localhost:8000/hikes/hike?hikeId=';
 
   private httpClient : HttpClient = inject(HttpClient);
 
@@ -29,6 +30,17 @@ export class HikeService {
         }
       })
       // .pipe(map(data => data.map(apiHike => this.mapToHike(apiHike)))) //Transforme les données réceptionnées pour fiter l'interface 'Hike' et enlève les modèles !
+  }
+
+
+  fetchHikeById(hikeId : string = '0') : Observable<Hike>{
+    const URL_WITH_ID = this.HIKE_BY_ID.concat(hikeId);
+    return this.httpClient.get<Hike>(URL_WITH_ID,
+      {
+        headers : {
+          'Authorization' : `Bearer ${this.userInfos?.jwtToken}`
+        }
+      })
   }
 
 
