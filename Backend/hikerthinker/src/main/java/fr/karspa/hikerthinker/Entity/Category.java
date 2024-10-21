@@ -12,18 +12,18 @@ public class Category {
     private Long categoryId;
 
     @Column(nullable = false, name = "name")
-    private String categoryName;
+    private String name;
 
     public Category() {
     }
 
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
+    public Category(String name) {
+        this.name = name;
     }
 
-    public Category(Long categoryId, String categoryName) {
+    public Category(Long categoryId, String name) {
         this.categoryId = categoryId;
-        this.categoryName = categoryName;
+        this.name = name;
     }
 
     public Long getCategoryId() {
@@ -34,19 +34,19 @@ public class Category {
         this.categoryId = categoryId;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String categoryName) {
+        this.name = categoryName;
     }
 
     @Override
     public String toString() {
         return "Category{" +
                 "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
+                ", categoryName='" + name + '\'' +
                 '}';
     }
 }
