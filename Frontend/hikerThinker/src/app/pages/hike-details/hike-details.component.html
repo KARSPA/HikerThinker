@@ -1,0 +1,76 @@
+
+
+
+
+<section id="recap-container" class="mb-10 bg-green-700 py-2 px-3 h-36 flex justify-between">
+
+    
+    <div class="card-content flex flex-grow">
+        
+        <div class="card-content-title w-full">
+
+            <p class="text-lg tracking-wide mb-3 text-amber-400 ">{{hike?.title}}</p>
+
+            <div class="card-content flex pb-3 justify-evenly">
+
+                <div class="right-side min-w-max flex flex-col items-center px-6 ">
+                    <div class="distance-container flex gap-4 items-center mb-3">
+
+                        <img src="/assets/chemin.png" alt="icone chemin" class="w-8">
+                        <p class="text-lg">{{hike?.distance}} km</p>
+                    </div>
+                    
+                    <div class="vertical-infos-container flex justify-between gap-4 w-full">
+                        <div class="negative-container flex gap-2 items-center">
+                            <img src="/assets/fleche-se.png" alt="icone descente" class="w-8">
+                            <p>{{hike?.negative}} m</p>
+                        </div>
+                        
+                        <div class="positive-container flex gap-2 items-center">
+                            <img src="/assets/fleche-ne.png" alt="icone montée" class="w-8">
+                            <p>{{hike?.positive}} m</p>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="middle min-w-max px-6">
+                    <div class="date-container flex gap-4 items-center mb-3">
+                        <img src="/assets/calendrier.png" alt="icone calendrier" class="w-8">
+                        <p class="text-lg">{{hike?.date | date:'dd / MM / yy'}}</p>
+                    </div>
+                    <div class="date-container flex gap-4 items-center ">
+                        <img src="/assets/duree.png" alt="icone durée" class="w-8">
+                        <p>{{hike?.duration}} jours</p>
+                    </div>
+                </div>
+
+                <div class="left-side min-w-max px-6">
+                    <div class="weight-container h-full flex gap-4 items-center justify-center mb-3">
+                        <img src="/assets/poids.png" alt="icone poids" class="w-8">
+                        <p class="text-xl font-semibold">{{this.totalWeight}} kg</p>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+
+    <div class="circle-graph-container">
+        <div class="circle bg-slate-950 rounded-full h-full aspect-square"></div>
+    </div>
+
+</section>
+
+
+<section id="equipments-container">
+
+    @for (category of groupedEquipments; track $index) {
+
+        <app-category-container [category]="category" [totalWeight]="totalWeight"></app-category-container>
+        <!-- <p>{{category}}</p>
+
+        <div>{{category[1]}}</div> -->
+    }
+
+</section>

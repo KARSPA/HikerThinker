@@ -8,6 +8,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { ModelsComponent } from './pages/models/models.component';
 import { authGuard } from './_helpers/auth.guard';
 import { CreateHikeComponent } from './pages/create-hike/create-hike.component';
+import { HikeDetailsComponent } from './pages/hike-details/hike-details.component';
 
 export const routes: Routes = [
     {path:'home', component: HomeComponent},
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path:'hikes/create', component: CreateHikeComponent, canActivate: [authGuard]},
     {path:'models', component: ModelsComponent, canActivate: [authGuard]},
     {path:'contact', component: ContactComponent},
+    {path:'hike/:hikeId', component: HikeDetailsComponent, canActivate: [authGuard]},
 
 ];

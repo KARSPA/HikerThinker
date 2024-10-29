@@ -13,4 +13,5 @@ public interface HikeRepository extends JpaRepository<Hike, Long> {
     Optional<Hike[]> findAllByUser(ApplicationUser user);
 
     Optional<Hike> findHikeByIdAndUser(Long hikeId, ApplicationUser user);
+
 }

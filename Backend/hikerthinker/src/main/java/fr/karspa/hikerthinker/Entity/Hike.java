@@ -22,7 +22,7 @@ public class Hike {
     private ApplicationUser user;
 
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String title;
 
     private float distanceInKm;

@@ -1,0 +1,23 @@
+
+
+<div class="category-container mb-10">
+
+    <div class="header-container flex justify-between bg-green-800 py-1 px-3 rounded-t-md text-white ">
+        <div class="title flex w-full">
+            <img [src]="getIconPath(category[0])" alt="icon categorie" class="w-10">
+            <p class="title text-xl py-2 px-3">{{category[0]}}</p>
+        </div>
+        <p class="text-xl py-2 px-3 text-center w-full">{{partialWeight / totalWeight | percent: '1.0-1'}}</p>
+        <p class="text-xl py-2 px-3 text-end w-full">{{partialWeight}} kg</p>
+    </div>
+
+
+    <div class="equipment-container border border-slate-500 px-3 grid grid-cols-auto-fill-300 gap-3">
+
+        @for (item of category[1]; track $index) {
+            
+            <app-equipment-card [equipment]="item"></app-equipment-card>
+        }
+    </div>
+    
+</div>

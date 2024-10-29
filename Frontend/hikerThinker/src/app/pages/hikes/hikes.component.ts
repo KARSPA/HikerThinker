@@ -20,11 +20,18 @@ export class HikesComponent implements OnInit{
   ngOnInit(): void {
       this.hikeService.fetchHikes().subscribe({
         next : (data)=>{
-          this.hikes = data;
+          this.hikes = data.sort(this.sortByDateDesc);
           console.log(data, this.hikes)
         },
         error : error => console.log(error)
       })
+  }
+
+
+  private sortByDateDesc(a : Hike, b : Hike){
+    let dateA = new Date(a.date).valueOf();
+    let dateB = new Date(b.date).valueOf();
+    return dateB - dateA;
   }
 
 }

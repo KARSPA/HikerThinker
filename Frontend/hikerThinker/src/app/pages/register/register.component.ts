@@ -19,6 +19,8 @@ export class RegisterComponent {
 
   registerHttpError : string = '';
 
+  hasBeenSubmitted : boolean = false;
+
   registerForm: FormGroup = new FormGroup({
     username : new FormControl('',[Validators.required, Validators.minLength(3)]),
     email : new FormControl('',[Validators.required, Validators.email]),
@@ -43,7 +45,12 @@ export class RegisterComponent {
   onSubmit() : void{
     console.log(this.registerForm);
 
+    if(this.registerForm.invalid){
+      this.hasBeenSubmitted = true;
+    }
+
     if(this.registerForm.valid){
+      this.hasBeenSubmitted = false;
 
       const registerCredentials : RegisterCredentials = this.registerForm.value;
 
@@ -65,6 +72,7 @@ export class RegisterComponent {
       }
     }
   }
+
 
   getErrorMessage(reason : string, length : number = 0) : string{
 
